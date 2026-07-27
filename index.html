@@ -1,0 +1,3313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровой музей бухгалтерской службы Банка России</title>
+    <meta name="description" content="Виртуальный музей, посвящённый истории бухгалтерской службы Банка России с 1860 года до наших дней">
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES - ЦВЕТОВАЯ ПАЛИТРА
+           ======================================== */
+        :root {
+            --color-emerald: #0d4f3c;
+            --color-emerald-deep: #0a3d2e;
+            --color-emerald-light: #1a6b52;
+            --color-burgundy: #6b1d2e;
+            --color-burgundy-light: #8b2a3f;
+            --color-ivory: #f5ecd7;
+            --color-ivory-dark: #e8dcc0;
+            --color-graphite: #1a1d23;
+            --color-graphite-light: #2a2f38;
+            --color-gold: #d4af37;
+            --color-gold-light: #e6c865;
+            --color-gold-dark: #a8862a;
+            --color-neon-gold: #ffd700;
+            --color-text-primary: #f5ecd7;
+            --color-text-secondary: #b8b0a0;
+            --color-text-dark: #2a2f38;
+            
+            --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s ease;
+            
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-hard: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --shadow-gold: 0 0 30px rgba(212, 175, 55, 0.3);
+            
+            --glass-bg: rgba(26, 29, 35, 0.7);
+            --glass-border: rgba(212, 175, 55, 0.2);
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-graphite);
+            color: var(--color-text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(13, 79, 60, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(107, 29, 46, 0.15) 0%, transparent 25%);
+        }
+
+        /* Сетка бухгалтерской книги на фоне */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========================================
+           TYPOGRAPHY
+           ======================================== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--color-ivory);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-gold), transparent);
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--color-gold-light);
+        }
+
+        p {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* ========================================
+           LAYOUT & CONTAINERS
+           ======================================== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background: rgba(26, 29, 35, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 0.6rem 0;
+            background: rgba(26, 29, 35, 0.95);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-menu a:hover {
+            color: var(--color-gold);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: 
+				radial-gradient(ellipse at center, rgba(13, 79, 60, 0.4) 0%, transparent 70%),
+				radial-gradient(ellipse at 80% 20%, rgba(13, 79, 60, 0.3) 0%, transparent 60%);
+			animation: heroPulse 8s ease-in-out infinite;
+		}
+
+        @keyframes heroPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--color-gold);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 2rem auto;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+            color: var(--color-graphite);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            margin-top: 2rem;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Декоративные элементы */
+        .decorative-seal {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .seal-1 { top: 10%; left: 5%; animation: rotate 30s linear infinite; }
+        .seal-2 { bottom: 15%; right: 8%; animation: rotate 40s linear infinite reverse; }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+           TIMELINE SECTION
+           ======================================== */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                var(--color-gold) 10%, 
+                var(--color-gold) 90%, 
+                transparent 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 4rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 4rem;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 2.5rem;
+            width: 20px;
+            height: 20px;
+            background: var(--color-gold);
+            border: 4px solid var(--color-graphite);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        .timeline-dot:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.9);
+        }
+
+        .timeline-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .timeline-year {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .timeline-era {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--color-gold);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--color-ivory);
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           LEADERS GRID
+           ======================================== */
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .leader-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .leader-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .leader-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .leader-portrait {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, var(--color-emerald-deep), var(--color-burgundy));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leader-portrait::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.2), transparent 60%),
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 11px);
+        }
+
+        .leader-portrait-placeholder {
+            width: 180px;
+            height: 180px;
+            border: 3px solid var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--color-gold);
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .leader-info {
+            padding: 1.5rem;
+        }
+
+        .leader-name {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-ivory);
+            margin-bottom: 0.3rem;
+        }
+
+        .leader-period {
+            font-size: 0.85rem;
+            color: var(--color-gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .leader-role {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .leader-era-tag {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--color-gold);
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+        }
+
+        /* ========================================
+           EXHIBITS GALLERY
+           ======================================== */
+        .exhibit-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.8rem;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--color-text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            font-family: var(--font-sans);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-gold);
+            color: var(--color-graphite);
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .exhibits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .exhibit-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .exhibit-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .exhibit-card.hidden {
+            display: none;
+        }
+
+        .exhibit-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .exhibit-image {
+			width: 100%;
+			height: 220px;
+			background: linear-gradient(135deg, var(--color-emerald-deep), var(--color-graphite-light));
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+		
+		.exhibit-photo {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.4s ease;
+			filter: sepia(0.3) contrast(1.1);
+		}
+		
+		.exhibit-card:hover .exhibit-photo {
+			transform: scale(1.05);
+			filter: sepia(0.1) contrast(1.2);
+		}
+
+        .exhibit-image::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: 
+				radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%),
+				repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.03) 2px, rgba(212, 175, 55, 0.03) 3px);
+			pointer-events: none;
+		}
+
+        .exhibit-icon {
+			font-size: 4rem;
+			color: var(--color-gold);
+			opacity: 0.6;
+			z-index: 1;
+			transition: var(--transition-smooth);
+		}
+
+		.exhibit-card:hover .exhibit-icon {
+			transform: scale(1.2);
+			opacity: 0.8;
+		}
+
+		/* Бейдж "Фото доступно" */
+		.exhibit-card.has-photo::before {
+			content: '📷';
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			background: rgba(212, 175, 55, 0.9);
+			color: var(--color-graphite);
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1rem;
+			z-index: 10;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+		}
+
+		.exhibit-card.has-photo {
+			position: relative;
+		}
+
+        .exhibit-info {
+            padding: 1.5rem;
+        }
+
+        .exhibit-title {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-ivory);
+            margin-bottom: 0.5rem;
+        }
+
+        .exhibit-year {
+            font-size: 0.85rem;
+            color: var(--color-gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .exhibit-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           CURIOSITIES (КУРЬЕЗЫ)
+           ======================================== */
+        .curiosities-section {
+            margin-top: 5rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .curiosities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .curiosity-card {
+            background: linear-gradient(135deg, rgba(107, 29, 46, 0.15), rgba(26, 29, 35, 0.8));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(107, 29, 46, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .curiosity-card::before {
+            content: 'СЕКРЕТНО';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--color-burgundy);
+            color: var(--color-ivory);
+            padding: 0.3rem 2.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            transform: rotate(45deg);
+            font-weight: 700;
+        }
+
+        .curiosity-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-burgundy-light);
+            box-shadow: 0 10px 30px rgba(107, 29, 46, 0.3);
+        }
+
+        .curiosity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .curiosity-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-ivory);
+            margin-bottom: 0.5rem;
+        }
+
+        .curiosity-year {
+            font-size: 0.85rem;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .curiosity-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           FUTURE ROOM
+           ======================================== */
+        .future-section {
+            background: linear-gradient(135deg, 
+                rgba(13, 79, 60, 0.2), 
+                rgba(26, 29, 35, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .future-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 50%, rgba(13, 79, 60, 0.2) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .future-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .future-text h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .future-features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .future-features li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-text-secondary);
+        }
+
+        .future-features li::before {
+            content: '◆';
+            color: var(--color-gold);
+            font-size: 1.2rem;
+        }
+
+        /* Калькулятор */
+        .calculator {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--color-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        .calculator-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .calculator h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--color-gold);
+        }
+
+        .calc-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .calc-field input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--color-ivory);
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            transition: var(--transition-fast);
+        }
+
+        .calc-field input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .calc-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+            color: var(--color-graphite);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .calc-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .calc-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--color-gold);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .calc-result-label {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .calc-result-value {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-gold);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           MODAL
+           ======================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--color-graphite-light);
+            border: 1px solid var(--color-gold);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            box-shadow: var(--shadow-gold);
+            animation: modalSlide 0.4s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--color-gold);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: var(--color-ivory);
+        }
+
+        .modal-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .modal-portrait {
+            width: 150px;
+            height: 150px;
+            border: 3px solid var(--color-gold);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-emerald-deep), var(--color-burgundy));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--color-gold);
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-ivory);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-period {
+            color: var(--color-gold);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-role {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h4 {
+            color: var(--color-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .modal-section p {
+            line-height: 1.8;
+        }
+
+        .awards-list {
+            list-style: none;
+        }
+
+        .awards-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-text-secondary);
+        }
+
+        .awards-list li::before {
+            content: '🏅';
+            position: absolute;
+            left: 0;
+        }
+		/* ========================================
+		   EXHIBIT MODAL STYLES
+		   ======================================== */
+		.modal-exhibit-content {
+			max-width: 1200px;
+			padding: 0;
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			overflow: hidden;
+		}
+
+		.exhibit-modal-image-container {
+			position: relative;
+			background: var(--color-graphite);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 600px;
+			overflow: hidden;
+		}
+
+		.exhibit-modal-image-container img {
+			max-width: 100%;
+			max-height: 80vh;
+			object-fit: contain;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+			transition: transform 0.3s ease;
+		}
+
+		.exhibit-modal-image-container img:hover {
+			transform: scale(1.02);
+		}
+
+		.image-overlay {
+			position: absolute;
+			bottom: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(0, 0, 0, 0.7);
+			padding: 0.5rem 1rem;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			color: var(--color-gold);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			pointer-events: none;
+		}
+
+		.exhibit-modal-image-container:hover .image-overlay {
+			opacity: 1;
+		}
+
+		.exhibit-modal-info {
+			padding: 3rem;
+			background: var(--color-graphite-light);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.modal-exhibit-title {
+			font-family: var(--font-serif);
+			font-size: 2rem;
+			color: var(--color-ivory);
+			margin-bottom: 1rem;
+		}
+
+		.modal-exhibit-description {
+			font-size: 1.1rem;
+			color: var(--color-text-secondary);
+			line-height: 1.8;
+			margin-bottom: 2rem;
+		}
+
+		.modal-exhibit-meta {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			padding-top: 2rem;
+			border-top: 1px solid var(--glass-border);
+		}
+
+		.page-reference {
+			font-size: 0.9rem;
+			color: var(--color-gold);
+			font-style: italic;
+		}
+
+		.download-btn {
+			padding: 1rem 1.5rem;
+			background: linear-gradient(135deg, var(--color-emerald), var(--color-emerald-light));
+			color: var(--color-ivory);
+			border: none;
+			border-radius: 8px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: var(--transition-smooth);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+		.download-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 25px rgba(13, 79, 60, 0.4);
+		}
+
+		/* Адаптивность для модального окна экспонатов */
+		@media (max-width: 968px) {
+			.modal-exhibit-content {
+				grid-template-columns: 1fr;
+				max-height: 90vh;
+				overflow-y: auto;
+			}
+			
+			.exhibit-modal-image-container {
+				min-height: 400px;
+			}
+			
+			.exhibit-modal-info {
+				padding: 2rem;
+			}
+			
+			.modal-exhibit-title {
+				font-size: 1.5rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.exhibit-modal-image-container {
+				min-height: 300px;
+			}
+			
+			.modal-exhibit-title {
+				font-size: 1.3rem;
+			}
+			
+			.modal-exhibit-description {
+				font-size: 0.95rem;
+			}
+		}
+
+		/* Курсор для карточек экспонатов */
+		.exhibit-card {
+			cursor: pointer;
+		}
+
+		.exhibit-card::after {
+			content: '🔍 Нажмите для просмотра';
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			background: rgba(212, 175, 55, 0.9);
+			color: var(--color-graphite);
+			padding: 0.3rem 0.6rem;
+			border-radius: 15px;
+			font-size: 0.75rem;
+			font-weight: 600;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.exhibit-card:hover::after {
+			opacity: 1;
+		}
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: var(--color-graphite);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-divider {
+            width: 100px;
+            height: 1px;
+            background: var(--color-gold);
+            margin: 2rem auto;
+            opacity: 0.3;
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            opacity: 0.7;
+        }
+
+        /* ========================================
+           ANIMATIONS & UTILITIES
+           ======================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gold-glow {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-graphite);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-gold-dark);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-gold);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 968px) {
+            .future-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 4rem !important;
+                padding-right: 1rem !important;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-dot {
+                left: 20px !important;
+                right: auto !important;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 0;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--color-graphite);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .leaders-grid,
+            .exhibits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .curiosities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-portrait {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-badge {
+                font-size: 0.7rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .timeline-year {
+                font-size: 2rem;
+            }
+
+            .calc-result-value {
+                font-size: 1.5rem;
+            }
+        }
+		
+		/* ========================================
+		   HERO CARD - КАРТОЧКА ГЕРОЯ
+		   ======================================== */
+		.leader-card.hero-card {
+			position: relative;
+			background: linear-gradient(135deg, 
+				rgba(212, 175, 55, 0.15), 
+				rgba(107, 29, 46, 0.2),
+				rgba(26, 29, 35, 0.9));
+			border: 2px solid var(--color-gold);
+			box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+			grid-column: span 2;
+		}
+
+		@media (max-width: 768px) {
+			.leader-card.hero-card {
+				grid-column: span 1;
+			}
+		}
+
+		.leader-card.hero-card::before {
+			content: '★ ГЕРОЙ СОВЕТСКОГО СОЮЗА ★';
+			position: absolute;
+			top: 15px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+			color: var(--color-graphite);
+			padding: 0.4rem 1.2rem;
+			font-size: 0.7rem;
+			letter-spacing: 0.2em;
+			font-weight: 700;
+			border-radius: 20px;
+			z-index: 10;
+			box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
+			white-space: nowrap;
+		}
+
+		.leader-card.hero-card .leader-portrait {
+			background: linear-gradient(135deg, var(--color-burgundy), var(--color-emerald-deep));
+			height: 360px;
+		}
+
+		.leader-card.hero-card .leader-portrait::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: 
+				radial-gradient(circle at 50% 30%, rgba(255, 215, 0, 0.3), transparent 60%),
+				repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212, 175, 55, 0.08) 10px, rgba(212, 175, 55, 0.08) 11px);
+		}
+
+		.leader-card.hero-card .leader-portrait-placeholder {
+			border-color: var(--color-neon-gold);
+			box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+			font-size: 5rem;
+		}
+
+		.hero-badge-star {
+			position: absolute;
+			top: 60px;
+			right: 20px;
+			font-size: 3rem;
+			color: var(--color-neon-gold);
+			text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+			z-index: 5;
+			animation: starPulse 3s ease-in-out infinite;
+		}
+
+		@keyframes starPulse {
+			0%, 100% { transform: scale(1); opacity: 0.9; }
+			50% { transform: scale(1.1); opacity: 1; }
+		}
+
+		/* ========================================
+		   ВОЕННАЯ СЕКЦИЯ
+		   ======================================== */
+		.war-section {
+			margin-top: 5rem;
+			padding: 4rem 2rem;
+			background: linear-gradient(135deg, 
+				rgba(107, 29, 46, 0.2), 
+				rgba(26, 29, 35, 0.95));
+			border-radius: 24px;
+			border: 1px solid rgba(107, 29, 46, 0.4);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.war-section::before {
+			content: '1941—1945';
+			position: absolute;
+			top: 20px;
+			right: 30px;
+			font-family: var(--font-serif);
+			font-size: 4rem;
+			font-weight: 900;
+			color: rgba(212, 175, 55, 0.08);
+			letter-spacing: 0.1em;
+			pointer-events: none;
+		}
+
+		.war-section h2 {
+			color: var(--color-ivory);
+			margin-bottom: 1.5rem;
+		}
+
+		.war-intro {
+			font-size: 1.1rem;
+			color: var(--color-text-secondary);
+			line-height: 1.8;
+			margin-bottom: 2.5rem;
+			max-width: 900px;
+		}
+
+		.war-stats {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 1.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.war-stat {
+			background: rgba(0, 0, 0, 0.3);
+			border: 1px solid var(--glass-border);
+			border-radius: 12px;
+			padding: 1.5rem;
+			text-align: center;
+			transition: var(--transition-smooth);
+		}
+
+		.war-stat:hover {
+			border-color: var(--color-gold);
+			transform: translateY(-5px);
+		}
+
+		.war-stat-number {
+			font-family: var(--font-serif);
+			font-size: 2.5rem;
+			font-weight: 900;
+			color: var(--color-gold);
+			line-height: 1;
+			margin-bottom: 0.5rem;
+		}
+
+		.war-stat-label {
+			font-size: 0.85rem;
+			color: var(--color-text-secondary);
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+		}
+
+		.war-functions {
+			list-style: none;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 1rem;
+			margin-top: 2rem;
+		}
+
+		.war-functions li {
+			padding: 1rem 1.5rem;
+			background: rgba(0, 0, 0, 0.2);
+			border-left: 3px solid var(--color-burgundy-light);
+			border-radius: 0 8px 8px 0;
+			color: var(--color-text-secondary);
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.war-functions li strong {
+			color: var(--color-gold);
+			display: block;
+			margin-bottom: 0.3rem;
+			font-family: var(--font-serif);
+		}
+
+		/* Модальное окно героя */
+		.modal-hero-header {
+			background: linear-gradient(135deg, 
+				rgba(212, 175, 55, 0.15), 
+				rgba(107, 29, 46, 0.2));
+			padding: 2rem;
+			border-radius: 16px;
+			margin-bottom: 2rem;
+			border: 1px solid var(--color-gold);
+		}
+
+		.hero-quote {
+			font-family: var(--font-serif);
+			font-style: italic;
+			font-size: 1.1rem;
+			color: var(--color-ivory);
+			padding: 1.5rem 2rem;
+			border-left: 4px solid var(--color-gold);
+			background: rgba(212, 175, 55, 0.05);
+			border-radius: 0 12px 12px 0;
+			margin: 1.5rem 0;
+			line-height: 1.7;
+		}
+
+		.hero-quote::before {
+			content: '❝';
+			font-size: 2rem;
+			color: var(--color-gold);
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+
+		.battle-timeline {
+			position: relative;
+			padding-left: 2rem;
+			margin: 2rem 0;
+			border-left: 2px solid var(--color-gold);
+		}
+
+		.battle-event {
+			position: relative;
+			padding: 1rem 0 1rem 1.5rem;
+			margin-bottom: 1rem;
+		}
+
+		.battle-event::before {
+			content: '';
+			position: absolute;
+			left: -2.4rem;
+			top: 1.3rem;
+			width: 12px;
+			height: 12px;
+			background: var(--color-gold);
+			border-radius: 50%;
+			box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+		}
+
+		.battle-event-year {
+			font-family: var(--font-serif);
+			color: var(--color-gold);
+			font-weight: 700;
+			font-size: 1.1rem;
+			margin-bottom: 0.3rem;
+		}
+
+		.battle-event-text {
+			color: var(--color-text-secondary);
+			line-height: 1.6;
+		}
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">₽</div>
+                <span>Музей Бухгалтерии</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero">Главная</a></li>
+                <li><a href="#evolution">Эволюция</a></li>
+                <li><a href="#leaders">Хранители</a></li>
+                <li><a href="#exhibits">Экспонаты</a></li>
+                <li><a href="#future">Будущее</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="decorative-seal seal-1"></div>
+            <div class="decorative-seal seal-2"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">1860 — 2026</div>
+            <h1>Цифровой музей<br>бухгалтерской службы</h1>
+            <p class="hero-description">
+                Путешествие сквозь эпохи: от перьевых счетов Императорского Госбанка до квантовых вычислений 
+                мегарегулятора финансовой системы. Здесь каждая цифра — часть великой истории государства.
+            </p>
+            <a href="#evolution" class="hero-cta">
+                Войти в музей <span>→</span>
+            </a>
+        </div>
+        <div class="hero-scroll-indicator">
+            ПРОКРУТИТЕ ВНИЗ ↓
+        </div>
+    </section>
+
+    <!-- ========================================
+         ЗАЛ 1: ЭВОЛЮЦИЯ (TIMELINE)
+         ======================================== -->
+    <section id="evolution">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-subtitle">Зал I</span>
+                <h2>Эволюция службы</h2>
+                <p>От Указа императора Александра II до цифровой трансформации мегарегулятора</p>
+            </div>
+
+            <div class="timeline">
+                <!-- 1860 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1860</div>
+                        <div class="timeline-era">Российская Империя</div>
+                        <h3 class="timeline-title">Учреждение Государственного Банка</h3>
+                        <p class="timeline-text">
+                            12 июня 1860 года император Александр II подписал Указ об учреждении Государственного Банка Российской Империи. 
+                            Основная задача — «оживление торговых оборотов и упрочение денежной кредитной системы». 
+                            Создана Главная бухгалтерия в Санкт-Петербурге.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1864 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1864</div>
+                        <div class="timeline-era">Российская Империя</div>
+                        <h3 class="timeline-title">Новый Устав Банка</h3>
+                        <p class="timeline-text">
+                            Принят новый Устав, согласно которому Банк должен был облегчать торговые обороты, 
+                            содействовать развитию отечественной торговли, промышленности и сельского хозяйства 
+                            посредством краткосрочного кредита.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1894 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1894</div>
+                        <div class="timeline-era">Российская Империя</div>
+                        <h3 class="timeline-title">Универсальное кредитное учреждение</h3>
+                        <p class="timeline-text">
+                            Утверждён новый Устав. В период промышленного подъёма Россия нуждалась в усилении роли Госбанка, 
+                            превращении его в универсальное кредитное учреждение. Санкт-Петербургская контора заняла лидирующие позиции.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1897 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1897</div>
+                        <div class="timeline-era">Золотой стандарт</div>
+                        <h3 class="timeline-title">Введение золотого стандарта</h3>
+                        <p class="timeline-text">
+                            Банк получил право выпуска бумажных денег и их свободного обмена на золото. 
+                            Потребовалась особая точность в учёте золотых операций и движения драгоценных металлов. 
+                            Бухгалтерия освоила новый уровень ответственности.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1917 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1917</div>
+                        <div class="timeline-era">Революция</div>
+                        <h3 class="timeline-title">Национализация банков</h3>
+                        <p class="timeline-text">
+                            Декрет ВЦИК «О национализации банков». Госбанк вместе с бывшими частными банками 
+                            был преобразован в Народный банк РСФСР. Введена государственная монополия на банковское дело.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1921 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1921</div>
+                        <div class="timeline-era">РСФСР</div>
+                        <h3 class="timeline-title">Государственный Банк РСФСР</h3>
+                        <p class="timeline-text">
+                            Учреждение Госбанка РСФСР. Переход на новые формы бухгалтерской отчётности. 
+                            Центральная бухгалтерия насчитывает 1150 человек и располагается в 10 комнатах.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1930-е -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1930</div>
+                        <div class="timeline-era">Механизация</div>
+                        <h3 class="timeline-title">Эра арифмометров</h3>
+                        <p class="timeline-text">
+                            Массовое внедрение арифмометров «Феликс» (копия машины Однера). 
+                            Бухгалтерия осваивает счётные машины, формы расчётов платёжными требованиями. 
+                            Госбанк становится единым центром краткосрочного кредитования.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1960-е -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1960</div>
+                        <div class="timeline-era">ЭВМ</div>
+                        <h3 class="timeline-title">Первые электронные машины</h3>
+                        <p class="timeline-text">
+                            Внедрение первых ЭВМ (Минск-22, ЕС ЭМ). Вычислительные комплексы занимают целые залы 
+                            и весят несколько тонн. Учёт по перфокартам — потеря одной карты может нарушить весь баланс.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 1990-е -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1990</div>
+                        <div class="timeline-era">Цифровая эра</div>
+                        <h3 class="timeline-title">Персональные компьютеры</h3>
+                        <p class="timeline-text">
+                            Появление ПК в бухгалтерских отделах. Переход на бумажных мемориальных ордеров 
+                            на электронные проводки. Автоматизация расчётно-кассовых центров, внедрение АРМ бухгалтера.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2013 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2013</div>
+                        <div class="timeline-era">Мегарегулятор</div>
+                        <h3 class="timeline-title">Банк России — мегарегулятор</h3>
+                        <p class="timeline-text">
+                            С 1 сентября 2013 года Банк России получил статус мегарегулятора. 
+                            Разработка и утверждение Плана счетов для кредитных организаций. 
+                            Переход на МСФО, внедрение единых стандартов и форм отчётности.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2020-е -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-era">Будущее</div>
+                        <h3 class="timeline-title">Блокчейн и ИИ</h3>
+                        <p class="timeline-text">
+                            Внедрение блокчейн-технологий для обмена финансовыми данными. 
+                            Тестирование цифрового рубля. Искусственный интеллект мгновенно рассчитывает зарплаты, 
+                            анализирует отчётность и подсказывает, как оптимизировать расходы.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ЗАЛ 2: ХРАНИТЕЛИ ЦИФР (РУКОВОДИТЕЛИ)
+         ======================================== -->
+    <section id="leaders">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-subtitle">Зал II</span>
+                <h2>Хранители цифр</h2>
+                <p>Руководители бухгалтерской службы — от Главных бухгалтеров Империи до директоров Департамента</p>
+            </div>
+
+            <div class="leaders-grid" id="leadersGrid">
+                <!-- Карточки будут сгенерированы через JS -->
+            </div>
+        </div>
+		
+		<!-- ВОЕННАЯ СЕКЦИЯ: БУХГАЛТЕРЫ НА ФРОНТЕ -->
+		<div class="war-section fade-in">
+			<span class="section-subtitle">Великая Отечественная война</span>
+			<h2>Бухгалтеры на фронте</h2>
+			<p class="war-intro">
+				Великая Отечественная война, ставшая рубиком в истории нашей страны, оставила серьёзный след 
+				и на деятельности Главного банка, и на биографиях его сотрудников. Многие из них были призваны 
+				в Красную Армию. Вопреки брони, многие госбанковцы уходили на фронт добровольцами.
+			</p>
+
+			<div class="war-stats">
+				<div class="war-stat">
+					<div class="war-stat-number">18 386</div>
+					<div class="war-stat-label">сотрудников ушли на фронт<br>в первые месяцы войны</div>
+				</div>
+				<div class="war-stat">
+					<div class="war-stat-number">55</div>
+					<div class="war-stat-label">боевых вылетов<br>Клавдии Фомичевой</div>
+				</div>
+				<div class="war-stat">
+					<div class="war-stat-number">11</div>
+					<div class="war-stat-label">сбитых вражеских<br>самолётов</div>
+				</div>
+				<div class="war-stat">
+					<div class="war-stat-number">1</div>
+					<div class="war-stat-label">женщина-Герой СССР<br>среди сотрудников Госбанка</div>
+				</div>
+			</div>
+
+			<h3 style="color: var(--color-gold); margin-bottom: 1rem; font-family: var(--font-serif);">
+				Функции бухгалтеров полевых банков
+			</h3>
+			<p style="color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.8;">
+				Полевые банки были созданы для обслуживания нужд армии и обеспечения финансовых операций 
+				на местах, что было особенно важно в условиях войны. Бухгалтеры работали в сложных условиях, 
+				часто под обстрелами, и должны были быстро адаптироваться к меняющейся обстановке.
+			</p>
+
+			<ul class="war-functions">
+				<li>
+					<strong>Финансовое обслуживание армии</strong>
+					Обеспечение расчёта заработной платы военнослужащим, учёт денежных средств, выделенных на нужды армии.
+				</li>
+				<li>
+					<strong>Контроль за расходами</strong>
+					Слежение за правильностью и целевым использованием средств, выделяемых на военные нужды.
+				</li>
+				<li>
+					<strong>Учёт и отчётность</strong>
+					Ведение строгого учёта всех финансовых операций и составление отчётов для центральных органов управления.
+				</li>
+				<li>
+					<strong>Финансирование тыла</strong>
+					Обеспечение тыловых предприятий — от продовольствия до боеприпасов.
+				</li>
+				<li>
+					<strong>Адаптация к условиям войны</strong>
+					Работа под обстрелами, быстрая адаптация к меняющейся обстановке, бесперебойное финансовое обслуживание.
+				</li>
+				<li>
+					<strong>Моральная поддержка</strong>
+					Своевременная выплата зарплаты и обеспечение необходимым — важный вклад в поддержание духа войск.
+				</li>
+			</ul>
+
+			<div style="margin-top: 3rem; padding: 2rem; background: rgba(0,0,0,0.3); border-radius: 16px; border-left: 4px solid var(--color-gold);">
+				<p style="font-family: var(--font-serif); font-style: italic; color: var(--color-ivory); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">
+					«Товарищ авиадиспетчер, старший кассир Лукашенко выбрасывает 49 букв из 50 возможных, 
+					бухгалтер Петров — Ворошиловский стрелок второй степени, пулемётчик и шифровальщик, 
+					писарь Савечкин прекрасно владеет гранатой. И так — все... Они учились военному делу 
+					где только можно: на учебных сборах, в армии, в многочисленных кружках, самостоятельно».
+				</p>
+				<p style="color: var(--color-gold); font-size: 0.9rem;">
+					— Из журнала «Деньги и кредит», 1940-е годы
+				</p>
+			</div>
+		</div>
+    </section>
+
+    <!-- ========================================
+         ЗАЛ 3: ЭКСПОНАТЫ И АРТЕФАКТЫ
+         ======================================== -->
+    <section id="exhibits">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-subtitle">Зал III</span>
+                <h2>Экспонаты и артефакты</h2>
+                <p>От массивных дубовых книг до первых ЭВМ — материальная память профессии</p>
+            </div>
+
+            <div class="exhibit-filters">
+                <button class="filter-btn active" data-filter="all">Все эпохи</button>
+                <button class="filter-btn" data-filter="empire">Империя</button>
+                <button class="filter-btn" data-filter="ussr">СССР</button>
+                <button class="filter-btn" data-filter="modern">Современность</button>
+            </div>
+
+            <div class="exhibits-grid" id="exhibitsGrid">
+                <!-- Экспонаты будут сгенерированы через JS -->
+            </div>
+
+            <!-- КУРЬЕЗЫ -->
+            <div class="curiosities-section">
+                <div class="section-header fade-in">
+                    <span class="section-subtitle">Рассекречено</span>
+                    <h2>Курьёзные случаи</h2>
+                    <p>Истории, которые не вошли в официальные отчёты</p>
+                </div>
+
+                <div class="curiosities-grid">
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">👆</div>
+                        <h3 class="curiosity-title">Письмо от неграмотного вкладчика</h3>
+                        <div class="curiosity-year">1908 год</div>
+                        <p class="curiosity-text">
+                            В одно из отделений пришло письмо с просьбой «Вернуть деньги по кн. 1.2.3.4.5». 
+                            Подпись представляла собой... отпечаток большого пальца. Служащие банка сохранили 
+                            этот документ как пример того, что банковский учёт и финансовое образование населения 
+                            находились на разных уровнях.
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">👃</div>
+                        <h3 class="curiosity-title">Ошибочный нюх</h3>
+                        <div class="curiosity-year">1912 год</div>
+                        <p class="curiosity-text">
+                            Один из младших бухгалтеров ошибся, приписав лишнюю сумму в отчёт о поступлениях. 
+                            Ошибку заметили только при проверке в Петербурге, а сумма «перелива» оказалась равна 
+                            годовому жалованью целого отделения. Нарушителя не уволили, но перевели на работу 
+                            с мелкой кассой, чтобы он «тренировал глазомер».
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">🏦</div>
+                        <h3 class="curiosity-title">Секретная эвакуация золота</h3>
+                        <div class="curiosity-year">1915 год</div>
+                        <p class="curiosity-text">
+                            С приближением фронта к западным губерниям, бухгалтеры участвовали в тайной перевозке 
+                            золотого запаса. Для маскировки ценности упаковывали в ящики с надписью 
+                            «Архивные книги», а сопровождающими были именно сотрудники бухгалтерии — 
+                            они лучше всех умели обращаться с документами и печатями.
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">👑</div>
+                        <h3 class="curiosity-title">Императорская проверка</h3>
+                        <div class="curiosity-year">1896 год</div>
+                        <p class="curiosity-text">
+                            Во время визита Николая II в Главное управление Госбанка он долго рассматривал 
+                            бухгалтерские книги. По воспоминаниям очевидцев, царь заметил, что «в таком объёме 
+                            ошибок не может не быть», на что управляющий Аманский ответил: «Ваше Величество, 
+                            в этой книге ошибка была бы заметнее, чем тёмное пятно на белом фраке».
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">🎵</div>
+                        <h3 class="curiosity-title">Бухгалтер-свисток</h3>
+                        <div class="curiosity-year">1904 год</div>
+                        <p class="curiosity-text">
+                            В одном из отделений работал служащий, который, проверяя счета, постоянно насвистывал 
+                            одну и ту же мелодию. Коллеги шутили, что если мелодия обрывается на полуслове, 
+                            значит, он нашёл ошибку.
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">🔨</div>
+                        <h3 class="curiosity-title">Арифмометр против грабителей</h3>
+                        <div class="curiosity-year">1935 год</div>
+                        <p class="curiosity-text">
+                            В одном из отделений Госбанка в Свердловске бухгалтер отбился от грабителя, 
+                            ударив его тяжёлым арифмометром «Феликс». Машина при этом не пострадала 
+                            и продолжала работать. Легенда гласит, что она прослужила ещё 30 лет.
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">☕</div>
+                        <h3 class="curiosity-title">Ошибочный отчёт из-за кофе</h3>
+                        <div class="curiosity-year">1978 год</div>
+                        <p class="curiosity-text">
+                            Оператор ЭВМ в Новосибирске случайно пролил кофе на стопку перфокарт. 
+                            Часть отверстий «слиплась», и машина «посчитала», что в банк поступило 
+                            в 10 раз больше средств. Ошибка обнаружилась только после пересчёта вручную.
+                        </p>
+                    </div>
+
+                    <div class="curiosity-card fade-in">
+                        <div class="curiosity-icon">💻</div>
+                        <h3 class="curiosity-title">Компьютер и очередь</h3>
+                        <div class="curiosity-year">1989 год</div>
+                        <p class="curiosity-text">
+                            В одном из отделений Москвы первый персональный компьютер установили в бухгалтерии, 
+                            но сотрудники приходили на него «посмотреть». В первый день работы очередь 
+                            из любопытных растянулась на весь коридор, а рабочий процесс встал на полдня.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ЗАЛ 4: КОМНАТА БУДУЩЕГО
+         ======================================== -->
+    <section id="future" class="future-section">
+        <div class="container">
+            <div class="future-content">
+                <div class="future-text fade-in">
+                    <span class="section-subtitle">Зал IV</span>
+                    <h2>Взгляд в будущее</h2>
+                    <p>
+                        Эпоха, когда бухгалтерия Банка России и всей финансовой системы страны 
+                        перестраивалась на цифровые рельсы. Здесь — не просто история внедрения технологий, 
+                        а рассказ о том, как главный банк страны задавал правила игры для каждого бухгалтера.
+                    </p>
+
+                    <ul class="future-features">
+                        <li>Разработка и утверждение Плана счетов для кредитных организаций</li>
+                        <li>Внедрение единых стандартов и форм отчётности</li>
+                        <li>Переход на МСФО — смена подхода: оценка активов, резервов, рисков</li>
+                        <li>Автоматизированные системы проверки отчётности (5 секунд на анализ)</li>
+                        <li>Централизация бухгалтерской службы, межрегиональные центры</li>
+                        <li>Блокчейн-технологии для обмена финансовыми данными</li>
+                        <li>Тестирование цифрового рубля</li>
+                    </ul>
+                </div>
+
+                <div class="calculator fade-in">
+                    <div class="calculator-content">
+                        <h3>Калькулятор основных средств</h3>
+                        <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                            Рассчитайте амортизационную стоимость в стиле современного дашборда
+                        </p>
+
+                        <div class="calc-field">
+                            <label for="initialCost">Первоначальная стоимость (₽)</label>
+                            <input type="number" id="initialCost" value="1000000" min="0">
+                        </div>
+
+                        <div class="calc-field">
+                            <label for="usefulLife">Срок полезного использования (лет)</label>
+                            <input type="number" id="usefulLife" value="10" min="1">
+                        </div>
+
+                        <div class="calc-field">
+                            <label for="yearsUsed">Прошло лет эксплуатации</label>
+                            <input type="number" id="yearsUsed" value="3" min="0">
+                        </div>
+
+                        <button class="calc-button" id="calcButton">Рассчитать</button>
+
+                        <div class="calc-result">
+                            <div class="calc-result-label">Остаточная стоимость</div>
+                            <div class="calc-result-value" id="calcResult">700 000 ₽</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Цифровой музей бухгалтерской службы</div>
+                <p class="footer-text">
+                    Виртуальное пространство, посвящённое истории бухгалтерии Банка России — 
+                    от перьевых счетов Империи до квантовых вычислений мегарегулятора.
+                </p>
+                <div class="footer-divider"></div>
+                <p class="footer-copyright">
+                    © 2026 Банк России. Музей создан в образовательных и культурных целях.<br>
+                    Материалы предоставлены на основе архивных документов.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         MODAL (для биографий)
+         ======================================== -->
+    <div class="modal" id="leaderModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <div class="modal-portrait" id="modalPortrait">?</div>
+                <div>
+                    <h3 class="modal-title" id="modalTitle">Имя руководителя</h3>
+                    <div class="modal-period" id="modalPeriod">Годы работы</div>
+                    <div class="modal-role" id="modalRole">Должность</div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h4>Биография</h4>
+                <p id="modalBio">Текст биографии...</p>
+            </div>
+            <div class="modal-section">
+                <h4>Ключевые достижения</h4>
+                <p id="modalAchievements">Достижения...</p>
+            </div>
+            <div class="modal-section">
+                <h4>Награды</h4>
+                <ul class="awards-list" id="modalAwards"></ul>
+            </div>
+        </div>
+    </div>
+	
+	<!-- ========================================
+     MODAL FOR EXHIBITS (МОДАЛЬНОЕ ОКНО ДЛЯ ЭКСПОНАТОВ)
+     ======================================== -->
+	<div class="modal" id="exhibitModal">
+		<div class="modal-content modal-exhibit-content">
+			<button class="modal-close" id="exhibitModalClose">&times;</button>
+			
+			<div class="exhibit-modal-image-container">
+				<img id="modalExhibitImage" src="" alt="Экспонат">
+				<div class="image-overlay">
+					<span class="zoom-hint">↔ Разверните для деталей</span>
+				</div>
+			</div>
+			
+			<div class="exhibit-modal-info">
+				<h3 class="modal-exhibit-title" id="modalExhibitTitle">Название экспоната</h3>
+				<p class="modal-exhibit-description" id="modalExhibitDescription">Описание экспоната</p>
+			</div>
+		</div>
+	</div>
+
+    <!-- ========================================
+         JAVASCRIPT
+         ======================================== -->
+    <script>
+        /* ========================================
+           ДАННЫЕ: РУКОВОДИТЕЛИ
+           ======================================== */
+        const leadersData = [
+			{
+				id: 0,
+				name: 'Клавдия Яковлевна Фомичева',
+				period: '1917–1958',
+				role: 'Бухгалтер-контролёр Московской областной конторы Госбанка • Командир звена 46-го гвардейского ночного бомбардировочного авиаполка • Герой Советского Союза',
+				era: 'ussr',
+				initial: 'Ф',
+				isHero: true, // Особый флаг для стилизации
+				bio: 'Клавдия Яковлевна Фомичева — единственная женщина среди Героев Советского Союза — сотрудников Главного банка страны. Её путь начался с работы учеником счетовода и учёбы в вечернем отделении школы банковского ученичества при Московской конторе Госбанка. До войны она трудилась бухгалтером-контролёром — в тишине банковских залов, среди счетов и мемориальных ордеров.',
+				achievements: `В 1936 году при Госбанке открылись курсы планеризма, которые Клавдия окончила одной из лучших. Любовь к небу взяла верх: с 1938 года она стала лётчиком-инструктором и за три года подготовила около 100 курсантов — почти все они стали лётчиками-истребителями.
+
+		С октября 1941 года — в Красной Армии. Прошла курсы военной подготовки при Энгельсской военной авиационной школе пилотов. На фронте оказалась в январе 1943 года.
+
+		Воевала под Сталинградом, на Кубани, под Смоленском, освобождала Белоруссию и Прибалтику. Летала на сложнейших пикирующих бомбардировщиках Пе-2 — эти машины «не прощали обращенья на ты». Даже небольшая ошибка в пилотировании приводила к аварии.
+
+		Совершила 55 боевых вылетов, сбила 11 немецких самолётов. Звание Героя Советского Союза присвоено 18 августа 1945 года за мужество и героизм, проявленные при нанесении бомбовых ударов по врагу.`,
+				awards: [
+					'Звание Героя Советского Союза (18.08.1945)',
+					'Орден Ленина',
+					'Два ордена Красного Знамени',
+					'Орден Красной Звезды',
+					'Медаль «За оборону Сталинграда»',
+					'Медаль «За оборону Кавказа»',
+					'Медаль «За Победу над Германией в Великой Отечественной войне 1941–1945 гг.»',
+					'Медаль «За взятие Кёнигсберга»'
+				],
+				// Дополнительные поля для расширенного модального окна
+				heroStory: `В одном из боевых вылетов 1943 года самолёт Фомичевой попал под мощнейший заградительный огонь вражеской артиллерии. Задание было выполнено, но машина получила серьёзные повреждения. Несмотря на тяжёлые ранения и ожоги, Клавдия сумела посадить подбитый Пе-2. Экипаж был спасён.
+
+		Она получила ожоги II степени, переломы, но не бросила штурмана, который не мог покинуть машину с парашютом. «Бросить штурмана — значит обресть его на верную гибель», — решила она и повела машину на посадку.
+
+		После госпиталя, в начале 1944 года, Фомичева вернулась в свой полк. Участвовала в Митавской, Рижской и Мемельской операциях. Её последнее боевое задание она успешно выполнила в небе Прибалтики 8 мая 1945 года.`,
+				quote: '«Надо, когда по-настоящему почувствуешь машину!» — отвечала Клавдия на замечания подруг-лётчиц, когда она лихо пролетала над аэродромом при заходе на посадку.',
+				battles: [
+					{ year: '1943, январь', text: 'Прибытие на фронт. Первые бои под Сталинградом.' },
+					{ year: '1943, весна', text: 'Кубанские бои. Бомбардировка укреплённых позиций врага на Таманском полуострове.' },
+					{ year: '1943, осень', text: 'Тяжёлое ранение. Посадка подбитого Пе-2. Спасение экипажа.' },
+					{ year: '1944', text: 'Митавская, Рижская, Мемельская операции. Умелое руководство звеном.' },
+					{ year: '1945, 8 мая', text: 'Последний боевой вылет в небе Прибалтики.' },
+					{ year: '1945, 18 августа', text: 'Присвоение звания Героя Советского Союза.' }
+				],
+				afterWar: 'После войны Клавдия Яковлевна служила лётчиком-инструктором в Военно-воздушной академии, затем преподавала в Борисоглебском военном авиационном училище лётчиков. В 1955 году в звании подполковника ушла в запас. Жила в Москве. Умерла 6 октября 1958 года после тяжёлой болезни. Похоронена на Новодевичьем кладбище. Её именем названы улицы в Москве и в городе Данков Липецкой области.'
+			},
+            {
+                id: 1,
+                name: 'Виктор Яковлевич Виллон',
+                period: '1861–1869',
+                role: 'Главный бухгалтер, затем Директор Госбанка',
+                era: 'empire',
+                initial: 'В',
+                bio: 'Родился 25 февраля 1812 года в купеческой семье. По окончании курса наук в Императорском Московском университете (1831 г.) выпущен студентом со званием действительного студента. С 1832 г. — на государственной службе. В 1835 г. определён на службу в Государственный Коммерческий банк. Неоднократно командирован во временные kontorы.',
+                achievements: 'Назначен Главным бухгалтером Государственного Коммерческого банка (1853 г.). После преобразования его в Государственный банк занял должность Главного бухгалтера (1861 г.). В 1867 г. назначен Директором Государственного банка.',
+                awards: [
+                    'Орден Св. Станислава 2-й ст. с Императорской короной',
+                    'Орден Св. Владимира 4-й ст. (1867 г. — за 35 лет государственной службы)',
+                    'Тёмно-бронзовая медаль на Андреевской ленте в память войны 1853-1856 гг.',
+                    'Знак отличия Беспорочной службы за 35 лет (1867 г.)'
+                ]
+            },
+            {
+                id: 2,
+                name: 'Михаил Иванович Калимировский',
+                period: 'Конец 1860-х',
+                role: 'Главный бухгалтер',
+                era: 'empire',
+                initial: 'К',
+                bio: 'Потомственный почётный гражданин. По окончании полного курса наук в Санкт-Петербургском коммерческом пансионе поступил на службу в Государственный банк (1861 г.). Занимал должности канцелярского служителя, помощника бухгалтера 1-го разряда, младшего бухгалтера, старшего бухгалтера.',
+                achievements: 'Назначен Главным бухгалтером по распоряжению Правления Государственного банка (1867 г.). По собственному прошению оставил службу в 1868 г. «вследствие домашних обстоятельств».',
+                awards: [
+                    'Орден Св. Станислава 2-й ст. (1866 г.)'
+                ]
+            },
+            {
+                id: 3,
+                name: 'Иван Александрович Спегулин',
+                period: '1870-е – начало 1880-х',
+                role: 'Главный бухгалтер, затем Директор Госбанка',
+                era: 'empire',
+                initial: 'С',
+                bio: 'Родился 23 января 1844 года. Сын санкт-петербургского купца. В 1856 г. поступил воспитанником в Санкт-Петербургское коммерческое училище, где содержался за счёт капитала, пожертвованного основателем училища Прокофием Акинфиевичем Демидовым. По окончании полного курса наук выпущен со званием личного почётного гражданина и кандидата коммерции (1862 г.).',
+                achievements: 'С 1868 г. — исправляющий должность Главного бухгалтера банка. С 21 декабря того же года — Главный бухгалтер. С 1878 г. назначен Директором Государственного банка с оставлением в должности Главного бухгалтера. В 1876 г. состоял председателем в комиссии для рассмотрения замечаний Ревизионного комитета.',
+                awards: [
+                    'Орден Св. Владимира 4-й ст. (1880 г.)',
+                    'Орден Св. Анны 2-й ст. (1875 г.)',
+                    'Орден Св. Станислава 2-й ст. с короной (1871 г.)',
+                    'Черногорский орден Данила I 3-й степени'
+                ]
+            },
+            {
+                id: 4,
+                name: 'Василий Васильевич Никитин',
+                period: 'Конец 1870-х – 1890-е',
+                role: 'Главный бухгалтер, Директор, Товарищ управляющего',
+                era: 'empire',
+                initial: 'Н',
+                bio: 'Родился 22 февраля 1845 г. из дворян. По окончании полного курса наук в Санкт-Петербургском коммерческом училище в 1862 г. определён на службу в Государственный банк. Последовательно занимал должности помощника контролёра разных разрядов, младшего бухгалтера, старшего бухгалтера, инспектора контор.',
+                achievements: 'С 1878 г. — Главный бухгалтер банка. С 1882 г. назначен Директором банка. Курировал деятельность отделений текущих счетов, казначейства, всеми суммами Госбанка за границей, сношения с зарубежными банкирами. С 1890 г. исполнял обязанности товарища управляющего банком. При преобразовании Госбанка (1894 г.) назначен Директором Санкт-Петербургской конторы.',
+                awards: [
+                    'Орден Св. Владимира 3-й, 4-й ст.',
+                    'Орден Св. Анны 2-й ст.',
+                    'Орден Св. Станислава 1-й, 2-й ст.',
+                    'Знак Серского общества Красного Креста',
+                    'Серебряная медаль на Александровской ленте'
+                ]
+            },
+            {
+                id: 5,
+                name: 'Михаил Александрович Мухин',
+                period: 'Середина 1880-х – 1896',
+                role: 'Главный бухгалтер, затем Заведующий Центральной бухгалтерией',
+                era: 'empire',
+                initial: 'М',
+                bio: 'Из мещан. Окончил полный курс наук в Санкт-Петербургском коммерческом училище со званием личного почётного гражданина, кандидата коммерции и с серебряной медалью. В 1875 г. определён на службу в Государственный банк «по вольному найму» (с 1884 г. — на государственной службе).',
+                achievements: '11 мая 1882 г. назначен Главным бухгалтером. Управляющий банком А.Д. Чесменский писал ему: «Назначая Вас Главным бухгалтером... поручаю Вам принять в своё заведование счетоводство и отчётность банка». По преобразовании Госбанка назначен заведующим Центральной бухгалтерией. С 1895 г. — старший инспектор Госбанка.',
+                awards: [
+                    'Орден Св. Анны 3-й ст. (1885 г.)',
+                    'Орден Св. Станислава 2-й, 3-й ст.'
+                ]
+            },
+            {
+                id: 6,
+                name: 'Ефим Николаевич Сланский',
+                period: '1895–1917',
+                role: 'Заведующий Центральной бухгалтерией, Директор',
+                era: 'empire',
+                initial: 'Сл',
+                bio: 'Из семьи священнослужителя. Воспитывался в Воронежской духовной семинарии. В 1880 г. поступил на службу в Воронежскую казённую палату. С 1882 г. — в Государственном банке. Работал помощником контролёра, помощником бухгалтера, младшим бухгалтером, старшим бухгалтером, инспектором контор, помощником директора.',
+                achievements: 'С 1895 г. — заведующий Центральной бухгалтерией Госбанка (занимал должность до января 1917 г.). Был редактором общей книги «Государственный Банк. Краткий очерк деятельности за 1860-1910 гг.». С 1904 г. — Директор Госбанка. С 1912 г. — председатель Хозяйственного комитета, непосредственное руководство всей строительной частью.',
+                awards: [
+                    'Орден Св. Анны 1-й, 2-й, 3-й ст.',
+                    'Орден Св. Станислава 1-й, 2-й, 3-й ст.',
+                    'Орден Св. Владимира 3-й, 4-й ст.',
+                    'Серебряная медаль в память царствования Александра III',
+                    'Светло-бронзовая медаль в память 300-летия Дома Романовых',
+                    'Светло-бронзовая медаль «За труды по отличному выполнению всеобщей мобилизации 1914 г.»',
+                    'Высочайшая благодарность (1910 г.)'
+                ]
+            },
+            {
+                id: 7,
+                name: 'Павел Михайлович Богданов',
+                period: 'Декабрь 1916 – 1917',
+                role: 'Директор, заведующий Центральной бухгалтерией',
+                era: 'empire',
+                initial: 'Б',
+                bio: 'Из дворян. Родился 18 октября 1870 г. В 1892 г. окончил полный курс наук в Императорском Санкт-Петербургском университете «по естественному разряду физико-математического факультета» с дипломом 1-й степени. С 1897 г. — в Государственном банке.',
+                achievements: 'Последовательно занимал должности помощника контролёра, контролёра, старшего делопроизводителя, помощника директора. В 1914 г. назначен младшим инспектором и временно управляющим отделом местных учреждений. С декабря 1916 г. — Директор Госбанка, в январе 1917 г. вступил в заведование Центральной бухгалтерией. В 1918 г. занимал должность технического советника при Главном комиссаре-управляющем Народным банком РСФСР.',
+                awards: [
+                    'Орден Св. Анны 3-й ст. (1909 г.)',
+                    'Орден Св. Станислава 3-й ст. (1903 г.)',
+                    'Серебряная медаль в память царствования Александра III',
+                    'Светло-бронзовая медаль «За труды по отличному выполнению всеобщей мобилизации 1914 г.»'
+                ]
+            },
+            {
+                id: 8,
+                name: 'Василий Арсентьевич Леедсмаа',
+                period: '1921–1928',
+                role: 'Главный бухгалтер Госбанка РСФСР',
+                era: 'ussr',
+                initial: 'Л',
+                bio: 'Один из первых руководителей бухгалтерской службы Госбанка РСФСР в период становления советской финансовой системы. Возглавил Центральную бухгалтерию в момент перехода на новые формы бухгалтерской отчётности.',
+                achievements: 'Руководил бухгалтерией в период денежной реформы и выпуска червонца (1924 г.), когда бухгалтерия осваивала учёт новой валюты. Банк был наделён эмиссионным правом.',
+                awards: []
+            },
+            {
+                id: 9,
+                name: 'Константин Иванович Назаркин',
+                period: '1952–1955',
+                role: 'Главный бухгалтер Госбанка СССР',
+                era: 'ussr',
+                initial: 'Н',
+                bio: 'Родился в октябре 1906 года в городе Озёры Московской губернии в семье служащего. После окончания Озёрской школы поступил работать в Озёрское агентство Мосторбанка. Главный бухгалтер оперативного управления Московской областной конторы Госбанка (1937-1944 гг.), управляющий Узбекской республиканской конторой (1944-1949 гг.).',
+                achievements: 'В 1949 г. присвоено персональное звание Государственного советника финансовой службы III-го ранга. Член Правления Госбанка СССР, начальник Управления по кассовому исполнению госбюджета. В 1955-1957 гг. — заместитель Председателя Правления Госбанка, Председатель Правления Внешторгбанка. С 1963 г. — Председатель Правления Международного банка экономического сотрудничества.',
+                awards: [
+                    'Нагрудный знак «Отличник Госбанка СССР» (1944 г.)',
+                    'Медаль «За оборону Москвы» (1944 г.)',
+                    'Медаль «За доблестный труд в Великой Отечественной войне 1941-1945 гг.» (1945 г.)',
+                    'Орден Трудового Красного Знамени (1952, 1971 гг.)',
+                    'Орден «Знак Почёта» (1966 г.)',
+                    'Занесён в Книгу Почёта Правления Госбанка СССР (1975 г.)'
+                ]
+            },
+            {
+                id: 10,
+                name: 'Сергей Ефимович Щелоков',
+                period: '1956–1969',
+                role: 'Главный бухгалтер Госбанка СССР',
+                era: 'ussr',
+                initial: 'Щ',
+                bio: 'Родился 20 октября 1904 года на хуторе Сорокино. После окончания школы работал счетоводом и бухгалтером. С февраля 1931 г. трудовая деятельность неразрывно связана с системой Госбанка СССР. Занимал должности Главного бухгалтера Сорокинского отделения, старшего инспектора, директора инспекции, Главного бухгалтера конторы.',
+                achievements: 'С 1938 г. — в Правлении Госбанка СССР. В 1944 г. руководил Центральной бухгалтерией. В 1950 г. направлен на обучение в Финансовую академию. В 1954-1956 гг. находился в Китайской Народной Республике в качестве старшего советника при Народном банке Китая, где оказал существенную помощь в организации денежного обращения и учётно-оперативной работы. В полной должности Главного бухгалтера курировал деятельность Фабрики механизированного учёта.',
+                awards: [
+                    'Медаль «За доблестный труд» (1946 г.)',
+                    'Медаль «За трудовое отличие» (1946 г.)',
+                    'Нагрудный знак «Отличник Госбанка» (1946 г.)',
+                    'Почётная грамота Президиума Верховного Совета Латвийской ССР (1947 г.)',
+                    'Орден Трудового Красного Знамени (1953 г.)',
+                    'Орден «Знак Почёта» (1966 г.)'
+                ]
+            },
+            {
+                id: 11,
+                name: 'Иван Васильевич Красавин',
+                period: '1969–1985',
+                role: 'Главный бухгалтер Госбанка СССР',
+                era: 'ussr',
+                initial: 'К',
+                bio: 'Родился 17 октября 1914 года в деревне Высоково Угличского района Ярославской области в крестьянской семье. В 1931 году окончил семилетнюю школу. С 1932 года работал в системе Госбанка СССР. Последовательно занимал должности бухгалтера, Главного бухгалтера, старшего инспектора. В феврале 1942 г. мобилизован в ряды Красной Армии. День Победы встретил в Праге в звании капитана.',
+                achievements: 'Под руководством Красавина аппарат Центральной бухгалтерии разработал и осуществил важные мероприятия по совершенствованию расчётов в народном хозяйстве. Как представитель Правления Госбанка он совместно с Министерством финансов и Госпланом СССР принимал участие в подготовке предложений для Правительства по контролю за финансово-хозяйственной деятельностью отраслей. Представлял Госбанк СССР в Национальном комитете по участию СССР в Международной организации по стандартизации.',
+                awards: [
+                    'Орден Отечественной войны II степени (1945, 1985 гг.)',
+                    'Медаль «За Победу над Германией» (1945 г.)',
+                    'Медаль «За трудовую доблесть» (1953 г.)',
+                    'Нагрудный знак «Отличник Госбанка» (1957 г.)',
+                    'Орден Трудового Красного Знамени (1966 г.)',
+                    'Юбилейная медаль «За доблестный труд. В ознаменование 100-летия со дня рождения В.И. Ленина» (1970 г.)',
+                    'Орден «Дружбы народов» (1981 г.)',
+                    'Нагрудный знак «Отличник финансовой работы» (1981 г.)',
+                    'Почётная грамота Президиума Верховного Совета РСФСР (1984 г.)',
+                    'Почётная грамота Банка России (1999, 2000 гг.)'
+                ]
+            },
+            {
+                id: 12,
+                name: 'Вячеслав Иванович Соловьёв',
+                period: '1985–1987',
+                role: 'Главный бухгалтер Госбанка СССР',
+                era: 'ussr',
+                initial: 'С',
+                bio: 'Руководил бухгалтерской службой в период начала масштабных экономических реформ в СССР. Возглавлял Центральную бухгалтерию в момент появления персональных компьютеров в бухгалтерских отделах.',
+                achievements: 'Руководил переходом к автоматизации бухгалтерского учёта, внедрением первых ПК в расчётно-кассовых центрах.',
+                awards: []
+            },
+            {
+                id: 13,
+                name: 'Лидия Ивановна Литус',
+                period: '1992–1994',
+                role: 'Руководитель Центральной бухгалтерии (на правах управления)',
+                era: 'modern',
+                initial: 'Л',
+                bio: 'Одна из первых руководителей бухгалтерской службы Банка России в постсоветский период. Возглавила службу в момент перехода на новые стандарты учёта и начала интеграции с международными финансовыми системами.',
+                achievements: 'Руководила переходом на 11-значную нумерацию вместо 5-значной нумерации счетов. Разработка инструкций и технических указаний.',
+                awards: []
+            },
+            {
+                id: 14,
+                name: 'Людмила Ивановна Гудзенко',
+                period: '1994–2013',
+                role: 'Руководитель Департамента бухгалтерского учёта и отчётности',
+                era: 'modern',
+                initial: 'Г',
+                bio: 'Возглавляла Департамент бухгалтерского учёта и отчётности (с 01.02.1993) в период масштабной цифровой трансформации. Под её руководством Банк России перешёл на международные стандарты финансовой отчётности.',
+                achievements: 'Разработка и утверждение Плана счетов для кредитных организаций. Каждое изменение плана влекло масштабные обновления ПО и перестройку внутренней отчётности во всех банках страны. Внедрение единых стандартов и форм отчётности. Переход на МСФО.',
+                awards: []
+            },
+            {
+                id: 15,
+                name: 'Андрей Васильевич Кружалов',
+                period: '2013–2018',
+                role: 'Руководитель Департамента бухгалтерского учёта и отчётности',
+                era: 'modern',
+                initial: 'К',
+                bio: 'Руководил Департаментом в период получения Банком России статуса мегарегулятора (01.09.2013). Возглавлял работу по интеграции бухгалтерского учёта с системами управления денежным обращением и надзора.',
+                achievements: 'Оптимизация и стандартизация бизнес-процессов, выполняемых бухслужбой. Автоматизация бухгалтерского учёта. Централизация бухгалтерской службы, организация межрегиональных центров бухгалтерского учёта.',
+                awards: []
+            },
+            {
+                id: 16,
+                name: 'Марина Юрьевна Грановская',
+                period: '2018 – настоящее время',
+                role: 'Руководитель Департамента бухгалтерского учёта и отчётности',
+                era: 'modern',
+                initial: 'Г',
+                bio: 'Возглавляет Департамент в эпоху цифровой трансформации и внедрения передовых технологий. Под её руководством Банк России активно внедряет блокчейн-технологии и тестирует цифровой рубль.',
+                achievements: 'Внедрение блокчейн-технологий для обмена финансовыми данными. Тестирование цифрового рубля. Развитие систем автоматизированной проверки отчётности (анализ за 5 секунд). Создание межрегиональных главных управлений (2014 г.).',
+                awards: []
+            }
+        ];
+
+        /* ========================================
+           ДАННЫЕ: ЭКСПОНАТЫ
+           ======================================== */
+		const exhibitsData = [
+			{
+				id: 1,
+				title: 'Структура 1860 г.',
+				year: '1860 г.',
+				era: 'empire',
+				icon: '📊',
+				image: './images/exhibits/structure-1860.jpg',
+				description: 'Схема, демонстрирующая структуру Госбанка в 1860 г.'
+			},
+			{
+				id: 2,
+				title: 'Указ об учреждении Госбанка',
+				year: 'Май 1860 г.',
+				era: 'empire',
+				icon: '💰',
+				image: './images/exhibits/bank-foundation.jpg',
+				description: ''
+			},
+			{
+				id: 3,
+				title: 'Письмо о назначении управляющего',
+				year: '1860 г.',
+				era: 'empire',
+				icon: '💵',
+				image: './images/exhibits/letter.jpg',
+				description: ''
+			},
+			{
+				id: 4,
+				title: 'Структура 1894 г.',
+				year: '1894 г.',
+				era: 'empire',
+				icon: '📜',
+				image: './images/exhibits/structure-1894.jpg',
+				description: ''
+			},
+			{
+				id: 5,
+				title: 'Выдержка из устава',
+				year: '1894 г.',
+				era: 'empire',
+				icon: '📖',
+				image: './images/exhibits/ustav.jpg',
+				description: ''
+			},
+			{
+				id: 6,
+				title: 'Табель содержаний',
+				year: '1894 г.',
+				era: 'empire',
+				icon: '📚',
+				image: './images/exhibits/table.jpg',
+				description: ''
+			},
+			{
+				id: 7,
+				title: 'Ответ Канцелярии',
+				year: '1894 г.',
+				era: 'empire',
+				icon: '🏅',
+				image: './images/exhibits/office_response.jpg',
+				description: ''
+			},
+			{
+				id: 8,
+				title: 'Ссуды на особых основаниях',
+				year: '1904-1913 гг.',
+				era: 'empire',
+				icon: '🚂',
+				image: './images/exhibits/loans-on-special-grounds.jpg',
+				description: 'Таблица итогов выдачи ссуд по учётно-ссудным процентам за 50 лет деятельности Императорского Госбанка.'
+			},
+			{
+				id: 9,
+				title: 'Заседание Совета Госбанка',
+				year: '',
+				era: 'empire',
+				icon: '📒',
+				image: './images/exhibits/meeting.jpg',
+				description: ''
+			},
+			{
+				id: 10,
+				title: 'Директива акционерным банкам',
+				year: '1914 г.',
+				era: 'empire',
+				icon: '📈',
+				image: './images/exhibits/directive.jpg',
+				description: ''
+			},
+			{
+				id: 11,
+				title: 'Удостоверение',
+				year: '1916 г.',
+				era: 'empire',
+				icon: '⚖️',
+				image: './images/exhibits/id.jpg',
+				description: ''
+			},
+			{
+				id: 12,
+				title: 'Чековая книжка',
+				year: '',
+				era: 'empire',
+				icon: '📝',
+				image: './images/exhibits/checkbook.jpg',
+				description: ''
+			},
+			{
+                id: 13,
+                title: 'Пассивы Госбанка',
+                year: '1861–1910 гг.',
+                era: 'empire',
+                icon: '📊',
+				image: './images/exhibits/passives-diagram.jpg',
+                description: 'Диаграмма пассивов Государственного банка с момента основания до начала XX века. Отражает эволюцию финансовой системы Империи.'
+            },
+			{
+                id: 14,
+                title: 'Валовая прибыль и её составные части',
+                year: '1860–1909 гг.',
+                era: 'empire',
+                icon: '💰',
+				image: './images/exhibits/profit-table.jpg',
+                description: 'Таблица, демонстрирующая структуру прибыли Госбанка за полвека его деятельности.'
+            },
+			{
+                id: 15,
+                title: 'Денежные знаки в народном обращении',
+                year: '1865–1910 гг.',
+                era: 'empire',
+                icon: '💵',
+				image: './images/exhibits/money-signs.jpg',
+                description: 'Таблица видов денежных знаков: банковое серебро, золото, монета, кредитные билеты.'
+            },
+			{
+				id: 16,
+				title: 'Прошение о награждении',
+				year: '1906 г.',
+				era: 'empire',
+				icon: '📗',
+				image: './images/exhibits/reward.jpg',
+				description: ''
+			},
+			{
+				id: 17,
+				title: 'Итоги выдач по учетно-ссудным операциям',
+				year: '1860-1910 гг.',
+				era: 'empire',
+				icon: '📸',
+				image: './images/exhibits/results.jpg',
+				description: ''
+			},
+			{
+				id: 18,
+				title: 'Баланс',
+				year: '1913 г.',
+				era: 'empire',
+				icon: '📸',
+				image: './images/exhibits/balance.jpg',
+				description: ''
+			},
+			{
+				id: 19,
+				title: 'Расписка',
+				year: '1917 г.',
+				era: 'empire',
+				icon: '🖨️',
+				image: './images/exhibits/note.jpg',
+				description: ''
+			},
+			{
+				id: 20,
+				title: 'Штампы-нумераторы и печати',
+				year: '1940-е – 1950-е',
+				era: 'ussr',
+				icon: '🔏',
+				image: './images/exhibits/stamps-seals.jpg', // Страница 49
+				description: 'Штампы-нумераторы, печати Ленинградской городской конторы Госбанка СССР — инструменты эпохи.'
+			},
+			{
+				id: 21,
+				title: 'Электронные вычислительные машины',
+				year: '1960-е – 1970-е',
+				era: 'ussr',
+				icon: '💾',
+				// Нет фотографии — будет иконка
+				description: 'Минск-22, ЕС ЭМ. Вычислительные комплексы занимали целые залы и весили несколько тонн, а производительность была меньше, чем у современного смартфона.'
+			},
+			{
+				id: 22,
+				title: 'Персональные компьютеры',
+				year: '1980-е – 1990-е',
+				era: 'ussr',
+				icon: '💻',
+				image: './images/exhibits/pc-1980s.jpg', // Страница 38
+				description: '«Электроника», «Роботрон». Появление ПК в бухгалтерских отделах — начало цифровой эры.'
+			},
+			{
+				id: 23,
+				title: 'АРМ бухгалтера',
+				year: '1990-е',
+				era: 'modern',
+				icon: '🖥️',
+				// Нет фотографии — будет иконка
+				description: 'Автоматизированное рабочее место бухгалтера. Переход с бумажных мемориальных ордеров на электронные проводки.'
+			},
+			{
+				id: 24,
+				title: 'Цифровой рубль',
+				year: '2020-е',
+				era: 'modern',
+				icon: '₿',
+				// Нет фотографии — будет иконка
+				description: 'Тестирование цифрового рубля — новая форма национальной валюты на основе блокчейн-технологий.'
+			}
+		];
+
+        /* ========================================
+           ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ
+           ======================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            initTimeline();
+            renderLeaders();
+            renderExhibits();
+            initFilters();
+            initCalculator();
+            initScrollAnimations();
+            initModal();
+			initExhibitModal();
+            initSmoothScroll();
+        });
+
+        /* ========================================
+           NAVBAR: SCROLL EFFECT & MOBILE MENU
+           ======================================== */
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // Закрытие меню при клике на ссылку
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        /* ========================================
+           TIMELINE: АНИМАЦИЯ ПОЯВЛЕНИЯ
+           ======================================== */
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            timelineItems.forEach(item => observer.observe(item));
+        }
+
+        /* ========================================
+           RENDER LEADERS (РУКОВОДИТЕЛИ)
+           ======================================== */
+        function renderLeaders() {
+			const grid = document.getElementById('leadersGrid');
+			
+			leadersData.forEach(leader => {
+				const card = document.createElement('div');
+				card.className = 'leader-card fade-in';
+				card.dataset.id = leader.id;
+				
+				// Если это карточка героя — добавляем особый класс
+				if (leader.isHero) {
+					card.classList.add('hero-card');
+				}
+				
+				const eraLabel = {
+					'empire': 'Империя',
+					'ussr': 'СССР',
+					'modern': 'Современность'
+				}[leader.era];
+
+				card.innerHTML = `
+					${leader.isHero ? '<div class="hero-badge-star">★</div>' : ''}
+					<div class="leader-portrait">
+						<div class="leader-portrait-placeholder">${leader.initial}</div>
+					</div>
+					<div class="leader-info">
+						<h3 class="leader-name">${leader.name}</h3>
+						<div class="leader-period">${leader.period}</div>
+						<p class="leader-role">${leader.role}</p>
+						<span class="leader-era-tag">${eraLabel}</span>
+					</div>
+				`;
+
+				card.addEventListener('click', () => openLeaderModal(leader));
+				grid.appendChild(card);
+			});
+		}
+
+        /* ========================================
+		   RENDER EXHIBITS (ЭКСПОНАТЫ С ФОТОГРАФИЯМИ)
+		   ======================================== */
+		function renderExhibits() {
+			const grid = document.getElementById('exhibitsGrid');
+			
+			exhibitsData.forEach((exhibit, index) => {
+				const card = document.createElement('div');
+				card.className = 'exhibit-card fade-in';
+				card.dataset.id = index + 1;
+				card.dataset.era = exhibit.era;
+				
+				// Проверяем, есть ли фотография
+				const hasImage = exhibit.image && exhibit.image.trim() !== '';
+				
+				card.innerHTML = `
+					<div class="exhibit-image">
+						${hasImage 
+							? `<img src="${exhibit.image}" alt="${exhibit.title}" class="exhibit-photo" loading="lazy">`
+							: `<div class="exhibit-icon">${exhibit.icon}</div>`
+						}
+					</div>
+					<div class="exhibit-info">
+						<h3 class="exhibit-title">${exhibit.title}</h3>
+						<div class="exhibit-year">${exhibit.year}</div>
+						<p class="exhibit-desc">${exhibit.description}</p>
+					</div>
+				`;
+
+				card.addEventListener('click', () => openExhibitModal(index + 1));
+				grid.appendChild(card);
+			});
+		}
+
+        /* ========================================
+           FILTERS ДЛЯ ЭКСПОНАТОВ
+           ======================================== */
+        function initFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const exhibitCards = document.querySelectorAll('.exhibit-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Убираем active у всех кнопок
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+
+                    exhibitCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.era === filter) {
+                            card.classList.remove('hidden');
+                            setTimeout(() => card.classList.add('visible'), 50);
+                        } else {
+                            card.classList.add('hidden');
+                            card.classList.remove('visible');
+                        }
+                    });
+                });
+            });
+        }
+
+        /* ========================================
+           КАЛЬКУЛЯТОР
+           ======================================== */
+        function initCalculator() {
+            const calcButton = document.getElementById('calcButton');
+            const initialCost = document.getElementById('initialCost');
+            const usefulLife = document.getElementById('usefulLife');
+            const yearsUsed = document.getElementById('yearsUsed');
+            const result = document.getElementById('calcResult');
+
+            calcButton.addEventListener('click', () => {
+                const initial = parseFloat(initialCost.value) || 0;
+                const life = parseFloat(usefulLife.value) || 1;
+                const used = parseFloat(yearsUsed.value) || 0;
+
+                // Линейная амортизация
+                const annualDepreciation = initial / life;
+                const totalDepreciation = annualDepreciation * used;
+                const residualValue = Math.max(0, initial - totalDepreciation);
+
+                result.textContent = formatCurrency(residualValue);
+                
+                // Анимация
+                result.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    result.style.transform = 'scale(1)';
+                }, 200);
+            });
+
+            // Первоначальный расчёт
+            calcButton.click();
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('ru-RU', {
+                style: 'currency',
+                currency: 'RUB',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(value);
+        }
+
+        /* ========================================
+           SCROLL ANIMATIONS (Intersection Observer)
+           ======================================== */
+        function initScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Отдельный observer для карточек руководителей и экспонатов
+            const cards = document.querySelectorAll('.leader-card, .exhibit-card');
+            cards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.005}s`;
+            });
+        }
+
+        /* ========================================
+           MODAL (МОДАЛЬНОЕ ОКНО БИОГРАФИЙ)
+           ======================================== */
+        function initModal() {
+            const modal = document.getElementById('leaderModal');
+            const modalClose = document.getElementById('modalClose');
+
+            modalClose.addEventListener('click', closeModal);
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        }
+
+        function openLeaderModal(leader) {
+			const modal = document.getElementById('leaderModal');
+			const portrait = document.getElementById('modalPortrait');
+			const title = document.getElementById('modalTitle');
+			const period = document.getElementById('modalPeriod');
+			const role = document.getElementById('modalRole');
+			const bio = document.getElementById('modalBio');
+			const achievements = document.getElementById('modalAchievements');
+			const awards = document.getElementById('modalAwards');
+
+			portrait.textContent = leader.initial;
+			title.textContent = leader.name;
+			period.textContent = leader.period;
+			role.textContent = leader.role;
+			
+			// Базовая биография
+			bio.textContent = leader.bio;
+			achievements.textContent = leader.achievements;
+
+			awards.innerHTML = '';
+			if (leader.awards && leader.awards.length > 0) {
+				leader.awards.forEach(award => {
+					const li = document.createElement('li');
+					li.textContent = award;
+					awards.appendChild(li);
+				});
+			} else {
+				const li = document.createElement('li');
+				li.textContent = 'Информация уточняется';
+				li.style.fontStyle = 'italic';
+				awards.appendChild(li);
+			}
+
+			// 🎖 Для героя — добавляем расширенный контент
+			if (leader.isHero) {
+				const modalContent = modal.querySelector('.modal-content');
+				
+				// Добавляем боевую биографию
+				const heroStorySection = document.createElement('div');
+				heroStorySection.className = 'modal-section';
+				heroStorySection.innerHTML = `
+					<h4>Подвиг на фронте</h4>
+					<p>${leader.heroStory.replace(/\n\n/g, '</p><p>')}</p>
+				`;
+				
+				// Добавляем цитату
+				const quoteBlock = document.createElement('div');
+				quoteBlock.className = 'hero-quote';
+				quoteBlock.textContent = leader.quote;
+				
+				// Добавляем боевой путь
+				const battleSection = document.createElement('div');
+				battleSection.className = 'modal-section';
+				battleSection.innerHTML = `<h4>Боевой путь</h4>`;
+				const battleTimeline = document.createElement('div');
+				battleTimeline.className = 'battle-timeline';
+				leader.battles.forEach(battle => {
+					const event = document.createElement('div');
+					event.className = 'battle-event';
+					event.innerHTML = `
+						<div class="battle-event-year">${battle.year}</div>
+						<div class="battle-event-text">${battle.text}</div>
+					`;
+					battleTimeline.appendChild(event);
+				});
+				battleSection.appendChild(battleTimeline);
+				
+				// Послевоенная жизнь
+				const afterWarSection = document.createElement('div');
+				afterWarSection.className = 'modal-section';
+				afterWarSection.innerHTML = `
+					<h4>После войны</h4>
+					<p>${leader.afterWar}</p>
+				`;
+				
+				// Вставляем всё после секции наград
+				const awardsSection = modalContent.querySelector('.modal-section:last-of-type');
+				awardsSection.after(afterWarSection);
+				afterWarSection.after(battleSection);
+				battleSection.after(heroStorySection);
+				heroStorySection.after(quoteBlock);
+				
+				// Добавляем золотую звезду в портрет
+				portrait.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.6)';
+				portrait.style.borderColor = 'var(--color-neon-gold)';
+			}
+
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		// Функция для очистки расширенного контента при закрытии
+		function closeModal() {
+			const modal = document.getElementById('leaderModal');
+			const modalContent = modal.querySelector('.modal-content');
+			
+			// Удаляем динамически добавленные секции героя
+			//modalContent.querySelectorAll('.hero-quote, .battle-timeline').forEach(el => {
+			//	el.parentElement.remove();
+			//});
+			
+			// Сбрасываем стили портрета
+			const portrait = document.getElementById('modalPortrait');
+			portrait.style.boxShadow = '';
+			portrait.style.borderColor = '';
+			
+			modal.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+		/* ========================================
+		   MODAL FOR EXHIBITS (МОДАЛЬНОЕ ОКНО ДЛЯ ЭКСПОНАТОВ)
+		   ======================================== */
+
+		// Данные для фотографий экспонатов с указанием страниц PDF
+		const exhibitPhotosData = {
+			1: { page: 'structure-1860', title: "Структура 1860 г.", description: "Схема, демонстрирующая структуру Госбанка в 1860 г." },
+			2: { page: 'bank-foundation', title: "Указ об учреждении Госбанка", description: "" },
+			3: { page: 'letter', title: "Письмо о назначении управляющего", description: "" },
+			4: { page: 'structure-1894', title: "Структура 1894 г.", description: "Схема, демонстрирующая структуру Госбанка в 1860 г." },
+			5: { page: 'ustav', title: "Устав Госбанка", description: "" },
+			6: { page: 'table', title: "Табель содержаний", description: "" },
+			7: { page: 'office_response', title: "Ответ Канцелярии", description: "" },
+			8: { page: 'loans-on-special-grounds', title: "Ссуды на особых основаниях", description: "Таблица итогов выдачи ссуд по учётно-ссудным процентам за 50 лет деятельности Императорского Госбанка." },
+			9: { page: 'meeting', title: "Заседание Совета Госбанка", description: "" },
+			10: { page: 'directive', title: "Директива акционерным банкам", description: "" },
+			11: { page: 'id', title: "Удостоверение", description: "" },
+			12: { page: 'checkbook', title: "Чековая книжка", description: "" },
+			13: { page: 'passives-diagram', title: "Пассивы Госбанка (диаграмма)", description: "Диаграмма пассивов с 1861 по 1910 год" },
+			14: { page: 'profit-table', title: "Валовая прибыль", description: "Таблица валовой прибыли за 1860-1909 гг." },
+			15: { page: 'money-signs', title: "Денежные знаки", description: "Денежные знаки в народном обращении 1865-1910 гг." },
+			16: { page: 'reward', title: "Прошение о награждении", description: "Прошение бухгалтера 1-го разряда о награждении орденом, 1906 г." },
+			17: { page: 'results', title: "Итоги выдач по учетно-ссудным операциям", description: "" },
+			18: { page: 'balance', title: "Баланс Госбанка", description: "Баланс на 23 мая (5 июня) 1913 г." },
+			19: { page: 'note', title: "Расписка о вкладе", description: "Расписка о приеме вклада на хранение, 13.10.1917" }
+		};
+
+		function initExhibitModal() {
+			const exhibitModal = document.getElementById('exhibitModal');
+			const exhibitModalClose = document.getElementById('exhibitModalClose');
+			const exhibitCards = document.querySelectorAll('.exhibit-card');
+
+			// Открытие модального окна при клике на карточку экспоната
+			exhibitCards.forEach(card => {
+				card.addEventListener('click', () => {
+					const exhibitId = parseInt(card.dataset.id);
+					openExhibitModal(exhibitId);
+				});
+			});
+
+			// Закрытие по крестику
+			exhibitModalClose.addEventListener('click', closeExhibitModal);
+			
+			// Закрытие по клику вне контента
+			exhibitModal.addEventListener('click', (e) => {
+				if (e.target === exhibitModal) {
+					closeExhibitModal();
+				}
+			});
+
+			// Закрытие по Escape
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && exhibitModal.classList.contains('active')) {
+					closeExhibitModal();
+				}
+			});
+		}
+
+		function openExhibitModal(exhibitId) {
+			const modal = document.getElementById('exhibitModal');
+			const photoInfo = exhibitPhotosData[exhibitId];
+			
+			if (!photoInfo) return;
+
+			const modalImage = document.getElementById('modalExhibitImage');
+			const modalTitle = document.getElementById('modalExhibitTitle');
+			const modalDescription = document.getElementById('modalExhibitDescription');
+			const modalPage = document.getElementById('modalExhibitPage');
+
+			// Здесь нужно подставить реальный путь к изображению
+			// Например: `/images/exhibits/page_${photoInfo.page}.jpg`
+			modalImage.src = `./images/exhibits/${photoInfo.page}.jpg`;
+			modalImage.alt = photoInfo.title;
+			
+			modalTitle.textContent = photoInfo.title;
+			modalDescription.textContent = photoInfo.description;
+			//modalPage.textContent = `Страница ${photoInfo.page} из архивного PDF`;
+
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeExhibitModal() {
+			const modal = document.getElementById('exhibitModal');
+			modal.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+
+        /* ========================================
+           SMOOTH SCROLL
+           ======================================== */
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+		
+		function downloadOriginalPDF() {
+			// Здесь можно добавить логику скачивания оригинального PDF
+			const pdfUrl = './archives/Фотографии.pdf';
+			const link = document.createElement('a');
+			link.href = pdfUrl;
+			link.download = 'Фотографии_Госбанка.pdf';
+			link.click();
+		}
+    </script>
+</body>
+</html>
