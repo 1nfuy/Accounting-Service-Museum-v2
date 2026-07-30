@@ -861,10 +861,10 @@
 	font-weight: 600;
 	cursor: pointer;
 	transition: var(--transition-smooth);
-	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
+	margin-bottom: 2rem;
 }
 
 .download-btn:hover {
