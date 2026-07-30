@@ -190,11 +190,11 @@ function openExhibitModal(exhibitId) {
     const modalDescription = document.getElementById('modalExhibitDescription');
     const modalPage = document.getElementById('modalExhibitPage');
 
-    modalImage.src = `./images/exhibits/${photoInfo.page}.jpg`;
+    modalImage.src = `./assets/images/exhibits/${photoInfo.page}.jpg`;
     modalImage.alt = photoInfo.title;
     
     modalTitle.textContent = photoInfo.title;
-    modalDescription.textContent = photoInfo.description;
+    modalDescription.innerHTML = photoInfo.description;
     // modalPage.textContent = `Страница ${photoInfo.page} из архивного PDF`;
 
     modal.classList.add('active');
