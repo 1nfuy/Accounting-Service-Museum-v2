@@ -39,3 +39,12 @@ function formatCurrency(value) {
 		maximumFractionDigits: 0
 	}).format(value);
 }
+
+function downloadOriginalPDF() {
+    // Здесь можно добавить логику скачивания оригинального PDF
+    const pdfUrl = './assets/docs/Библиотека.pdf';
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'Библиотека.pdf';
+    link.click();
+}
