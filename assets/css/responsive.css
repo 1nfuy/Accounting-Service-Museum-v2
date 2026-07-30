@@ -1,0 +1,139 @@
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 968px) {
+	.future-content {
+		grid-template-columns: 1fr;
+		gap: 3rem;
+	}
+
+	.timeline::before {
+		left: 30px;
+	}
+
+	.timeline-item {
+		width: 100%;
+		padding-left: 4rem !important;
+		padding-right: 1rem !important;
+		text-align: left !important;
+	}
+
+	.timeline-item:nth-child(even) {
+		left: 0;
+	}
+
+	.timeline-dot {
+		left: 20px !important;
+		right: auto !important;
+	}
+
+	.modal-header {
+		flex-direction: column;
+		text-align: center;
+	}
+}
+
+@media (max-width: 768px) {
+	section {
+		padding: 4rem 0;
+	}
+
+	.nav-menu {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		background: var(--color-graphite);
+		flex-direction: column;
+		padding: 2rem;
+		border-bottom: 1px solid var(--glass-border);
+	}
+
+	.nav-menu.active {
+		display: flex;
+	}
+
+	.nav-toggle {
+		display: block;
+	}
+
+	.leaders-grid,
+	.exhibits-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.curiosities-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.modal-content {
+		padding: 2rem 1.5rem;
+	}
+
+	.modal-portrait {
+		width: 120px;
+		height: 120px;
+		font-size: 2.5rem;
+	}
+
+	.modal-title {
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.hero-badge {
+		font-size: 0.7rem;
+		padding: 0.4rem 1rem;
+	}
+
+	.timeline-year {
+		font-size: 2rem;
+	}
+
+	.calc-result-value {
+		font-size: 1.5rem;
+	}
+}
+
+/* Адаптивность для модального окна экспонатов */
+@media (max-width: 968px) {
+	.modal-exhibit-content {
+		grid-template-columns: 1fr;
+		max-height: 90vh;
+		overflow-y: auto;
+	}
+	
+	.exhibit-modal-image-container {
+		min-height: 400px;
+	}
+	
+	.exhibit-modal-info {
+		padding: 2rem;
+	}
+	
+	.modal-exhibit-title {
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.exhibit-modal-image-container {
+		min-height: 300px;
+	}
+	
+	.modal-exhibit-title {
+		font-size: 1.3rem;
+	}
+	
+	.modal-exhibit-description {
+		font-size: 0.95rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.leader-card.hero-card {
+		grid-column: span 1;
+	}
+}
