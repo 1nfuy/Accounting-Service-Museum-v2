@@ -31,6 +31,15 @@ const exhibitsData = [
 	},
 	{
 		id: 4,
+		title: 'Мундир служащего',
+		year: '1856-1894 гг.',
+		era: 'empire',
+		icon: '📊',
+		image: './assets/images/exhibits/uniform.jpg',
+		description: ''
+	},
+	{
+		id: 5,
 		title: 'Структура 1894 г.',
 		year: '1894 г.',
 		era: 'empire',
@@ -39,7 +48,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 5,
+		id: 6,
 		title: 'Выдержка из устава',
 		year: '1894 г.',
 		era: 'empire',
@@ -48,7 +57,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 6,
+		id: 7,
 		title: 'Табель содержаний',
 		year: '1894 г.',
 		era: 'empire',
@@ -57,7 +66,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 7,
+		id: 8,
 		title: 'Ответ Канцелярии',
 		year: '1894 г.',
 		era: 'empire',
@@ -66,7 +75,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 8,
+		id: 9,
 		title: 'Ссуды на особых основаниях',
 		year: '1904-1913 гг.',
 		era: 'empire',
@@ -75,7 +84,7 @@ const exhibitsData = [
 		description: 'Таблица итогов выдачи ссуд по учётно-ссудным процентам за 50 лет деятельности Императорского Госбанка.'
 	},
 	{
-		id: 9,
+		id: 10,
 		title: 'Заседание Совета Госбанка',
 		year: '',
 		era: 'empire',
@@ -84,7 +93,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 10,
+		id: 11,
 		title: 'Директива акционерным банкам',
 		year: '1914 г.',
 		era: 'empire',
@@ -93,7 +102,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 11,
+		id: 12,
 		title: 'Удостоверение',
 		year: '1916 г.',
 		era: 'empire',
@@ -102,7 +111,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 12,
+		id: 13,
 		title: 'Чековая книжка',
 		year: '',
 		era: 'empire',
@@ -111,7 +120,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 13,
+		id: 14,
 		title: 'Пассивы Госбанка',
 		year: '1861–1910 гг.',
 		era: 'empire',
@@ -120,7 +129,7 @@ const exhibitsData = [
 		description: 'Диаграмма пассивов Государственного банка с момента основания до начала XX века. Отражает эволюцию финансовой системы Империи.'
 	},
 	{
-		id: 14,
+		id: 15,
 		title: 'Валовая прибыль и её составные части',
 		year: '1860–1909 гг.',
 		era: 'empire',
@@ -129,7 +138,7 @@ const exhibitsData = [
 		description: 'Таблица, демонстрирующая структуру прибыли Госбанка за полвека его деятельности.'
 	},
 	{
-		id: 15,
+		id: 16,
 		title: 'Денежные знаки в народном обращении',
 		year: '1865–1910 гг.',
 		era: 'empire',
@@ -138,7 +147,7 @@ const exhibitsData = [
 		description: 'Таблица видов денежных знаков: банковое серебро, золото, монета, кредитные билеты.'
 	},
 	{
-		id: 16,
+		id: 17,
 		title: 'Прошение о награждении',
 		year: '1906 г.',
 		era: 'empire',
@@ -147,7 +156,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 17,
+		id: 18,
 		title: 'Итоги выдач по учетно-ссудным операциям',
 		year: '1860-1910 гг.',
 		era: 'empire',
@@ -156,7 +165,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 18,
+		id: 19,
 		title: 'Баланс',
 		year: '1913 г.',
 		era: 'empire',
@@ -165,7 +174,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 19,
+		id: 20,
 		title: 'Расписка',
 		year: '1917 г.',
 		era: 'empire',
@@ -174,7 +183,7 @@ const exhibitsData = [
 		description: ''
 	},
 	{
-		id: 20,
+		id: 21,
 		title: 'Штампы-нумераторы и печати',
 		year: '1940-е – 1950-е',
 		era: 'ussr',
@@ -183,7 +192,7 @@ const exhibitsData = [
 		description: 'Штампы-нумераторы, печати Ленинградской городской конторы Госбанка СССР — инструменты эпохи.'
 	},
 	{
-		id: 21,
+		id: 22,
 		title: 'Электронные вычислительные машины',
 		year: '1960-е – 1970-е',
 		era: 'ussr',
@@ -192,16 +201,16 @@ const exhibitsData = [
 		description: 'Минск-22, ЕС ЭМ. Вычислительные комплексы занимали целые залы и весили несколько тонн, а производительность была меньше, чем у современного смартфона.'
 	},
 	{
-		id: 22,
+		id: 23,
 		title: 'Персональные компьютеры',
 		year: '1980-е – 1990-е',
 		era: 'ussr',
 		icon: '💻',
-		image: './assets/images/exhibits/pc-1980s.jpg', // Страница 38
+		image: './assets/images/exhibits/pc-1980s.jpg',
 		description: '«Электроника», «Роботрон». Появление ПК в бухгалтерских отделах — начало цифровой эры.'
 	},
 	{
-		id: 23,
+		id: 24,
 		title: 'АРМ бухгалтера',
 		year: '1990-е',
 		era: 'modern',
@@ -210,7 +219,7 @@ const exhibitsData = [
 		description: 'Автоматизированное рабочее место бухгалтера. Переход с бумажных мемориальных ордеров на электронные проводки.'
 	},
 	{
-		id: 24,
+		id: 25,
 		title: 'Цифровой рубль',
 		year: '2020-е',
 		era: 'modern',
@@ -225,20 +234,21 @@ const exhibitPhotosData = {
 	1: { page: 'structure-1860', title: "Структура 1860 г.", description: "Схема, демонстрирующая структуру Госбанка в 1860 г." },
 	2: { page: 'bank-foundation', title: "Указ об учреждении Госбанка", description: "" },
 	3: { page: 'letter', title: "Письмо о назначении управляющего", description: "" },
-	4: { page: 'structure-1894', title: "Структура 1894 г.", description: "Схема, демонстрирующая структуру Госбанка в 1860 г." },
-	5: { page: 'ustav', title: "Устав Госбанка", description: "" },
-	6: { page: 'table', title: "Табель содержаний", description: "" },
-	7: { page: 'office_response', title: "Ответ Канцелярии", description: "" },
-	8: { page: 'loans-on-special-grounds', title: "Ссуды на особых основаниях", description: "Таблица итогов выдачи ссуд по учётно-ссудным процентам за 50 лет деятельности Императорского Госбанка." },
-	9: { page: 'meeting', title: "Заседание Совета Госбанка", description: "" },
-	10: { page: 'directive', title: "Директива акционерным банкам", description: "" },
-	11: { page: 'id', title: "Удостоверение", description: "" },
-	12: { page: 'checkbook', title: "Чековая книжка", description: "" },
-	13: { page: 'passives-diagram', title: "Пассивы Госбанка (диаграмма)", description: "Диаграмма пассивов с 1861 по 1910 год" },
-	14: { page: 'profit-table', title: "Валовая прибыль", description: "Таблица валовой прибыли за 1860-1909 гг." },
-	15: { page: 'money-signs', title: "Денежные знаки", description: "Денежные знаки в народном обращении 1865-1910 гг." },
-	16: { page: 'reward', title: "Прошение о награждении", description: "Прошение бухгалтера 1-го разряда о награждении орденом, 1906 г." },
-	17: { page: 'results', title: "Итоги выдач по учетно-ссудным операциям", description: "" },
-	18: { page: 'balance', title: "Баланс Госбанка", description: "Баланс на 23 мая (5 июня) 1913 г." },
-	19: { page: 'note', title: "Расписка о вкладе", description: "Расписка о приеме вклада на хранение, 13.10.1917" }
+	4: { page: 'uniform', title: "Мундир служащего", description: "<p>02.02.1856 - Александр II утвердил новое «Описание формы одежды чинам гражданского ведомства и правила о ношении формы».</p><p>04.07.1861 - императором Александром II было утверждено «Расписание должностей Государственного банка», в котормо были определены должности, соответствующие им оклады, а также классы и разряды по должностям, мундирам и пенсиям для служащих центрального управления банка.</p><p>06.05.1894 - Александром III утвержден «Свод правил о ношении форменной одежды чинам гражданских ведомств»</p>"},
+	5: { page: 'structure-1894', title: "Структура 1894 г.", description: "Схема, демонстрирующая структуру Госбанка в 1860 г." },
+	6: { page: 'ustav', title: "Устав Госбанка", description: "" },
+	7: { page: 'table', title: "Табель содержаний", description: "" },
+	8: { page: 'office_response', title: "Ответ Канцелярии", description: "" },
+	9: { page: 'loans-on-special-grounds', title: "Ссуды на особых основаниях", description: "Таблица итогов выдачи ссуд по учётно-ссудным процентам за 50 лет деятельности Императорского Госбанка." },
+	10: { page: 'meeting', title: "Заседание Совета Госбанка", description: "" },
+	11: { page: 'directive', title: "Директива акционерным банкам", description: "" },
+	12: { page: 'id', title: "Удостоверение", description: "" },
+	13: { page: 'checkbook', title: "Чековая книжка", description: "" },
+	14: { page: 'passives-diagram', title: "Пассивы Госбанка (диаграмма)", description: "Диаграмма пассивов с 1861 по 1910 год" },
+	15: { page: 'profit-table', title: "Валовая прибыль", description: "Таблица валовой прибыли за 1860-1909 гг." },
+	16: { page: 'money-signs', title: "Денежные знаки", description: "Денежные знаки в народном обращении 1865-1910 гг." },
+	17: { page: 'reward', title: "Прошение о награждении", description: "Прошение бухгалтера 1-го разряда о награждении орденом, 1906 г." },
+	18: { page: 'results', title: "Итоги выдач по учетно-ссудным операциям", description: "" },
+	19: { page: 'balance', title: "Баланс Госбанка", description: "Баланс на 23 мая (5 июня) 1913 г." },
+	20: { page: 'note', title: "Расписка о вкладе", description: "Расписка о приеме вклада на хранение, 13.10.1917" }
 };
