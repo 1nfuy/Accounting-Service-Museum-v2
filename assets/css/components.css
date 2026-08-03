@@ -1181,3 +1181,47 @@
     background: var(--color-gold);
     color: var(--color-graphite);
 }
+
+/* ========================================
+   WAR STAT ICON (ИКОНКА КАСКИ — INLINE)
+   ======================================== */
+
+/* Возвращаем обычный padding для всех war-stat */
+.war-stat {
+    padding: 1.5rem;
+    position: relative;
+}
+
+/* Блок с числом — flex-контейнер для выравнивания иконки и текста */
+.war-stat-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+/* Иконка каски — inline со своими размерами */
+.war-stat-icon-inline {
+    width: 48px;
+    height: 48px;
+    color: var(--color-gold);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
+    transition: var(--transition-smooth);
+    vertical-align: middle;
+}
+
+.war-stat-highlight:hover .war-stat-icon-inline {
+    transform: scale(1.15) rotate(-5deg);
+    filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.8));
+}
+
+.war-stat-highlight:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}

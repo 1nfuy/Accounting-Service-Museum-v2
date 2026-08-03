@@ -151,3 +151,26 @@
         align-self: center;
     }
 }
+
+@media (max-width: 768px) {
+    .war-stat-number {
+        font-size: 2rem;
+    }
+    
+    .war-stat-icon-inline {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 480px) {
+    .war-stat-number {
+        font-size: 1.7rem;
+        gap: 0.4rem;
+    }
+    
+    .war-stat-icon-inline {
+        width: 32px;
+        height: 32px;
+    }
+}
