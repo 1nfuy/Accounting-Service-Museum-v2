@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	initNavbar();
 	initTimeline();
 	renderLeaders();
+	renderWarHero();
 	renderExhibits();
 	initFilters();
 	initCalculator();

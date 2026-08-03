@@ -5,6 +5,8 @@ function renderLeaders() {
 	const grid = document.getElementById('leadersGrid');
 	
 	leadersData.forEach(leader => {
+		if (leader.isWarHero) return; // Не выводим Фомичеву
+
 		const card = document.createElement('div');
 		card.className = 'leader-card fade-in';
 		card.dataset.id = leader.id;
@@ -36,6 +38,36 @@ function renderLeaders() {
 		card.addEventListener('click', () => openLeaderModal(leader));
 		grid.appendChild(card);
 	});
+}
+
+function renderWarHero() {
+    const container = document.getElementById('warHeroContainer');
+    if (!container) return;
+    
+    const hero = leadersData.find(l => l.isWarHero);
+    if (!hero) return;
+    
+    const card = document.createElement('div');
+    card.className = 'war-hero-card fade-in';
+    card.dataset.id = hero.id;
+    
+    card.innerHTML = `
+        <div class="war-hero-portrait">
+            <div class="leader-portrait-placeholder">${hero.initial}</div>
+            <div class="hero-badge-star">★</div>
+        </div>
+        <div class="war-hero-info">
+            <span class="section-subtitle">Герой Советского Союза</span>
+            <h3 class="war-hero-name">${hero.name}</h3>
+            <div class="leader-period">${hero.period}</div>
+            <p class="war-hero-role">${hero.role}</p>
+            <p class="war-hero-brief">${hero.bio.substring(0, 250)}...</p>
+            <button class="war-hero-btn">Читать полную историю →</button>
+        </div>
+    `;
+    
+    card.addEventListener('click', () => openLeaderModal(hero));
+    container.appendChild(card);
 }
 
 /* ========================================

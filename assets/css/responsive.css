@@ -133,7 +133,21 @@
 }
 
 @media (max-width: 768px) {
-	.leader-card.hero-card {
-		grid-column: span 1;
-	}
+    .war-hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+    
+    .war-hero-portrait {
+        justify-content: center;
+    }
+    
+    .war-hero-name {
+        font-size: 1.5rem;
+    }
+    
+    .war-hero-btn {
+        align-self: center;
+    }
 }
