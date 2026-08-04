@@ -51,7 +51,7 @@ function openLeaderModal(leader) {
         });
     } else {
         const li = document.createElement('li');
-        li.textContent = 'Информация уточняется';
+        li.textContent = ''; //'Информация уточняется';
         li.style.fontStyle = 'italic';
         awards.appendChild(li);
     }
